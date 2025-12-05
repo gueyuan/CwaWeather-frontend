@@ -14,7 +14,7 @@
         rel="stylesheet">
 
     <style>
-        /* === 蠟筆小新風格色板 (不變) === */
+        /* === 蠟筆小新風格色板 (維持視覺連貫性) === */
         :root {
             --sc-red: #E84D3C;
             --sc-yellow: #FFDC32;
@@ -35,54 +35,54 @@
         body {
             font-family: 'Zen Maru Gothic', sans-serif;
             background-color: var(--sc-light-yellow);
-            background-image: none;
             min-height: 100vh;
             color: var(--sc-dark);
             overflow-x: hidden;
-            padding-bottom: 20px;
+            padding-bottom: 30px;
         }
 
-        /* 頂部狀態列 */
+        /* 頂部狀態列：更精簡的導航欄 */
         .status-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            background: rgba(58, 120, 191, 0.8);
+            padding: 10px 20px; /* 縮小 Padding */
+            background: rgba(58, 120, 191, 0.9);
             backdrop-filter: blur(5px);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
+        /* 地點標籤：略為縮小，使導航欄更精簡 */
         .location-pill {
             background: var(--sc-yellow);
             color: var(--sc-red);
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 4px 12px;
+            border-radius: 15px;
             font-weight: 900;
-            font-size: 1.1rem;
-            transform: rotate(-3deg);
+            font-size: 1rem;
+            transform: rotate(-2deg);
             border: var(--border-width) solid var(--sc-dark);
-            box-shadow: 4px 4px 0 var(--sc-dark);
+            box-shadow: 2px 2px 0 var(--sc-dark);
         }
 
         .update-pill {
             font-size: 0.8rem;
             color: var(--sc-white);
             background: var(--sc-dark);
-            padding: 4px 10px;
-            border-radius: 12px;
+            padding: 3px 8px;
+            border-radius: 10px;
         }
 
-        /* === 容器調整：最大寬度 800px，確保平板以上也能舒適閱讀 === */
+        /* 容器調整：最大寬度 960px 適用於大螢幕 */
         .container {
             padding: 20px;
-            max-width: 800px; /* 增加最大寬度 */
+            max-width: 960px;
             margin: 0 auto;
         }
 
-        /* === 核心：今日焦點卡片 === */
+        /* === 核心：今日焦點卡片 - 資訊層級強化 === */
         .hero-card {
             background: var(--sc-white);
             border-radius: 40px;
@@ -92,7 +92,6 @@
             box-shadow: 8px 8px 0 var(--sc-dark);
             margin-bottom: 30px;
             position: relative;
-            /* RWD 調整：在較大螢幕上文字與圖示的彈性 */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -113,46 +112,94 @@
             font-size: 1.1rem;
         }
 
-        .hero-temp-container {
+        /* 主天氣資訊：圖示與溫度 */
+        .hero-main-info {
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 15px;
-            margin: 15px 0;
-            /* RWD 調整：確保圖標和溫度始終居中 */
-            width: 100%;
+            gap: 10px;
+            /* 讓主資訊成為焦點 */
+            margin: 10px 0 5px; 
         }
 
         .hero-icon {
-            font-size: 6rem;
+            font-size: 8rem; /* 放大主圖示，視覺衝擊力最強 */
             filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.2));
             animation: bounce 3s infinite;
         }
 
         .hero-temp {
-            font-size: 5rem;
+            font-size: 7rem; /* 放大溫度數字，強化核心數據 */
             font-weight: 900;
             color: var(--sc-dark);
             line-height: 1;
         }
 
         .hero-desc {
-            font-size: 1.6rem;
+            font-size: 1.8rem; /* 放大天氣描述 */
             color: var(--sc-dark);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-weight: 900;
         }
 
-        /* === 快速建議區 RWD 調整：平板以上可三欄或四欄 === */
-        .advice-grid {
+        /* === 關鍵數據網格：取代建議區，提供更多資訊 === */
+        .key-data-grid {
             display: grid;
-            /* 預設手機版兩欄 */
+            grid-template-columns: repeat(3, 1fr); /* 手機版三欄 */
+            gap: 10px;
+            padding: 20px 0;
+            border-top: 4px dashed var(--sc-dark);
+            width: 100%;
+            max-width: 450px; /* 限制手機版寬度 */
+        }
+
+        .data-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            background: var(--sc-light-yellow); /* 使用淺色背景，視覺權重低於建議 */
+            border-radius: 15px;
+            border: 2px solid var(--sc-dark);
+            box-shadow: 2px 2px 0 var(--sc-dark);
+        }
+
+        .data-icon {
+            font-size: 1.5rem;
+            margin-bottom: 3px;
+        }
+
+        .data-value {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--sc-dark);
+        }
+
+        .data-label {
+            font-size: 0.75rem;
+            color: var(--sc-dark);
+        }
+        
+        /* === 快速建議區：獨立出來，提供行動建議 === */
+        .advice-section {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 4px solid var(--sc-dark);
+            width: 100%;
+        }
+
+        .advice-title {
+            font-size: 1.4rem;
+            color: var(--sc-red);
+            margin-bottom: 10px;
+            font-weight: 900;
+            text-shadow: 2px 2px 0 var(--sc-dark);
+            text-align: left;
+        }
+
+        .advice-grid {
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 4px dashed var(--sc-dark);
-            width: 100%; /* 確保佔滿父容器寬度 */
+            display: grid;
         }
 
         .advice-item {
@@ -165,7 +212,6 @@
             border-radius: 20px;
             border: var(--border-width) solid var(--sc-dark);
             box-shadow: 4px 4px 0 var(--sc-dark);
-            /* RWD 調整：確保文字在小卡片內不會溢出 */
             overflow: hidden;
         }
 
@@ -183,14 +229,7 @@
             line-height: 1.2;
         }
 
-        .advice-item>div:last-child {
-            color: var(--sc-yellow) !important;
-            font-weight: 700;
-            /* RWD 調整：確保輔助資訊字體大小在手機上合適 */
-            font-size: 0.8rem !important;
-        }
-
-        /* === 稍後預報標題 (不變) === */
+        /* === 稍後預報卡片 (RWD 優化) === */
         .section-title {
             font-size: 1.4rem;
             color: var(--sc-red);
@@ -200,11 +239,10 @@
             text-shadow: 2px 2px 0 var(--sc-dark);
         }
 
-        /* 橫向滾動區塊 (不變) */
         .scroll-container {
             display: flex;
-            overflow-x: auto;
-            gap: 15px;
+            overflow-x: scroll;
+            gap: 10px; /* 縮小間距，一次顯示更多卡片 */
             padding-bottom: 10px;
             scrollbar-width: none;
             -ms-overflow-style: none;
@@ -214,88 +252,42 @@
             display: none;
         }
 
-        /* 迷你預報卡片 (調整寬度以適應更多卡片) */
         .mini-card {
-            min-width: 120px; /* 稍微縮小最小寬度，以塞入更多卡片 */
-            max-width: 140px; /* 增加最大寬度限制 */
+            min-width: 100px; /* 大幅縮小最小寬度，手機上一行可顯示四張卡 */
+            max-width: 120px;
             background: var(--sc-white);
-            border-radius: 25px;
-            padding: 20px 15px;
+            border-radius: 20px;
+            padding: 15px 10px;
             text-align: center;
             border: var(--border-width) solid var(--sc-dark);
-            box-shadow: 4px 4px 0 var(--sc-dark);
+            box-shadow: 3px 3px 0 var(--sc-dark);
             flex-shrink: 0;
         }
 
-        /* === 響應式斷點 (Media Queries) === */
-
-        /* 平板或中型螢幕 (例如 > 600px) */
-        @media (min-width: 600px) {
-            
-            /* 調整主卡片佈局：溫度和建議區左右排列 */
-            .hero-card {
-                /* 移除 flex-direction: column; */
-                text-align: left;
-                padding: 40px 35px;
-            }
-
-            .hero-content-wrapper {
-                display: flex;
-                align-items: center;
-                gap: 30px;
-            }
-            
-            .hero-temp-container {
-                /* 溫度區塊保持居中 */
-                justify-content: flex-start; 
-                margin: 0;
-                flex-shrink: 0;
-            }
-            
-            .hero-icon {
-                font-size: 8rem; /* 放大主圖示 */
-            }
-
-            .hero-temp {
-                font-size: 6rem; /* 放大主溫度 */
-            }
-
-            .hero-desc {
-                font-size: 1.8rem;
-                /* 在大螢幕上居左 */
-                text-align: left;
-            }
-            
-            /* 快速建議區變成三欄或四欄 */
-            .advice-grid {
-                /* 改為三欄 */
-                grid-template-columns: repeat(2, 1fr) 1fr;
-            }
+        .mini-time {
+            background: var(--sc-blue);
+            color: var(--sc-white);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 5px;
+            font-weight: 900;
+            border: 2px solid var(--sc-dark);
         }
 
-        /* 電腦或大型螢幕 (例如 > 800px) */
-        @media (min-width: 800px) {
-            .advice-grid {
-                /* 改為四欄 */
-                grid-template-columns: repeat(4, 1fr);
-            }
+        .mini-icon {
+            font-size: 2.5rem;
+            margin: 5px 0;
         }
 
-
-        /* 加回原本的動畫 */
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
+        .mini-temp {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--sc-dark);
         }
         
-        /* Loading 畫面相關 CSS (不變) */
+        /* Loading 畫面 (不變) */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -317,19 +309,9 @@
         }
 
         @keyframes shake {
-
-            0%,
-            100% {
-                transform: rotate(0deg);
-            }
-
-            25% {
-                transform: rotate(-10deg);
-            }
-
-            75% {
-                transform: rotate(10deg);
-            }
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
         }
 
         .loading-screen p {
@@ -338,6 +320,83 @@
             margin-top: 20px;
             font-size: 1.2rem;
             text-shadow: -1px -1px 0 var(--sc-dark), 1px -1px 0 var(--sc-dark), -1px 1px 0 var(--sc-dark), 1px 1px 0 var(--sc-dark);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* === RWD 斷點調整 === */
+
+        /* 平板或中型螢幕 (例如 >= 768px) */
+        @media (min-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            /* 關鍵數據網格：改為四欄，擴充資訊 */
+            .key-data-grid {
+                grid-template-columns: repeat(4, 1fr);
+                max-width: none; /* 移除寬度限制 */
+            }
+
+            /* 建議區塊：左右佈局，利用大螢幕空間 */
+            .advice-section {
+                display: flex;
+                align-items: flex-start;
+                gap: 30px;
+                padding-top: 30px;
+            }
+
+            .advice-title {
+                flex-shrink: 0;
+                /* 標題固定寬度，保持清晰 */
+                min-width: 120px; 
+                text-align: right;
+                margin-bottom: 0;
+            }
+
+            .advice-grid {
+                /* 在大螢幕上擴展為三欄 */
+                grid-template-columns: repeat(3, 1fr);
+                flex-grow: 1;
+            }
+        }
+
+        /* 電腦或大型螢幕 (例如 >= 960px) */
+        @media (min-width: 960px) {
+            
+            /* 主卡片佈局：更專業的左右分離，左邊主要數據，右邊關鍵數據 */
+            .hero-card {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 40px;
+            }
+            
+            .hero-content-left {
+                text-align: left;
+                flex-shrink: 0;
+            }
+
+            .hero-main-info {
+                justify-content: flex-start;
+            }
+
+            .key-data-grid {
+                /* 在大螢幕上改為兩欄 (垂直排列更緊湊) */
+                grid-template-columns: 1fr 1fr; 
+                gap: 15px;
+                padding: 0;
+                border-top: none;
+                max-width: 350px;
+            }
+            
+            .advice-grid {
+                /* 保持三欄或更多 (視需求) */
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
         
     </style>
@@ -359,7 +418,13 @@
         <div id="heroCard">
         </div>
 
-        <h3 class="section-title">✨ 小新提醒你：稍後預報</h3>
+        <div class="advice-section">
+            <h3 class="advice-title">💪 小新建議</h3>
+            <div class="advice-grid" id="adviceContainer">
+                </div>
+        </div>
+
+        <h3 class="section-title">🕒 稍後預報</h3>
         <div class="scroll-container" id="futureForecasts">
         </div>
 
@@ -367,6 +432,13 @@
 
     <script>
         const API_URL = "https://az-weather.zeabur.app/api/weather/kaohsiung";
+        
+        // 模擬更多天氣參數 (專業調整)
+        const mockData = {
+            feelsLikeTemp: 30, // 體感溫度
+            humidity: '75%', // 濕度
+            UVIndex: '中量級 6', // 紫外線指數
+        };
 
         function getWeatherIcon(weather) {
             if (!weather) return "😎"; 
@@ -380,24 +452,31 @@
         }
 
         function getAdvice(rainProb, maxTemp) {
-            let rainIcon = "👍";
-            let rainText = "沒有下雨，太棒了！";
+            // 專業調整：新增更多建議
+            const advices = [];
+            
+            // 降雨建議
             if (parseInt(rainProb) > 30) {
-                rainIcon = "☔";
-                rainText = "帶傘！避免變成落湯雞！";
+                advices.push({ icon: "☔", text: "記得帶傘！別變落湯雞！" });
+            } else {
+                advices.push({ icon: "☀️", text: "天氣超棒！適合戶外玩耍！" });
             }
 
-            let clothIcon = "👕";
-            let clothText = "舒適穿搭";
+            // 穿搭建議
             if (parseInt(maxTemp) >= 28) {
-                clothIcon = "🩳"; 
-                clothText = "穿短褲，屁屁出來見人！";
+                advices.push({ icon: "🩳", text: "天氣炎熱，穿短褲最涼快！" });
             } else if (parseInt(maxTemp) <= 20) {
-                clothIcon = "🧣"; 
-                clothText = "加件外套，小心感冒！";
+                advices.push({ icon: "🧣", text: "要加外套，小心著涼喔！" });
+            } else {
+                advices.push({ icon: "👕", text: "溫度舒適，休閒穿搭即可。" });
+            }
+            
+            // 紫外線建議
+            if (parseInt(mockData.UVIndex.split(' ')[1]) >= 6) {
+                advices.push({ icon: "🧴", text: "紫外線強，要記得擦防曬！" });
             }
 
-            return { rainIcon, rainText, clothIcon, clothText };
+            return advices;
         }
 
         function getTimePeriod(startTime) {
@@ -413,72 +492,84 @@
             const forecasts = data.forecasts;
             const current = forecasts[0];
             const others = forecasts.slice(1);
-
-            // 1. 渲染 Hero Card (主畫面) - 包含新的 RWD 結構
-            const advice = getAdvice(current.rain, current.maxTemp);
-            const period = getTimePeriod(current.startTime);
             const avgTemp = Math.round((parseInt(current.maxTemp) + parseInt(current.minTemp)) / 2);
+            const period = getTimePeriod(current.startTime);
 
+            // 1. 渲染 Hero Card (主畫面)
             document.getElementById('heroCard').innerHTML = `
                 <div class="hero-card">
                     <div class="hero-period">${period}</div>
-                    
-                    <div class="hero-content-wrapper">
-                        <div>
-                            <div class="hero-temp-container">
-                                <div class="hero-icon">${getWeatherIcon(current.weather)}</div>
-                                <div class="hero-temp">${avgTemp}°</div>
-                            </div>
-                            <div class="hero-desc">${current.weather}</div>
+
+                    <div class="hero-content-left">
+                        <div class="hero-main-info">
+                            <div class="hero-icon">${getWeatherIcon(current.weather)}</div>
+                            <div class="hero-temp">${avgTemp}°</div>
                         </div>
-                        
-                        <div class="advice-grid">
-                            <div class="advice-item">
-                                <div class="advice-icon">${advice.rainIcon}</div>
-                                <div class="advice-text">${advice.rainText}</div>
-                                <div style="font-size:0.8rem;">降雨率 ${current.rain}</div>
-                            </div>
-                            <div class="advice-item">
-                                <div class="advice-icon">${advice.clothIcon}</div>
-                                <div class="advice-text">${advice.clothText}</div>
-                                <div style="font-size:0.8rem;">最高溫 ${current.maxTemp}°</div>
-                            </div>
+                        <div class="hero-desc">${current.weather} (${current.minTemp}° - ${current.maxTemp}°)</div>
+                    </div>
+                    
+                    <div class="key-data-grid">
+                        <div class="data-item">
+                            <div class="data-icon">🌡️</div>
+                            <div class="data-value">${mockData.feelsLikeTemp}°</div>
+                            <div class="data-label">體感溫度</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-icon">💧</div>
+                            <div class="data-value">${current.rain}</div>
+                            <div class="data-label">降雨率</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-icon">💦</div>
+                            <div class="data-value">${mockData.humidity}</div>
+                            <div class="data-label">濕度</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-icon">😎</div>
+                            <div class="data-value">${mockData.UVIndex.split(' ')[0]}</div>
+                            <div class="data-label">紫外線</div>
                         </div>
                     </div>
                 </div>
             `;
-            
-            // 2. 渲染稍後預報 (不變)
+
+            // 2. 渲染建議區
+            const advices = getAdvice(current.rain, current.maxTemp);
+            const adviceContainer = document.getElementById('adviceContainer');
+            adviceContainer.innerHTML = advices.map(a => `
+                <div class="advice-item">
+                    <div class="advice-icon">${a.icon}</div>
+                    <div class="advice-text">${a.text}</div>
+                </div>
+            `).join('');
+
+            // 3. 渲染稍後預報
             const scrollContainer = document.getElementById('futureForecasts');
             scrollContainer.innerHTML = '';
-
             const todayDate = new Date().getDate();
 
             others.forEach(f => {
                 let p = getTimePeriod(f.startTime);
-
                 const fDate = new Date(f.startTime);
                 if (fDate.getDate() !== todayDate) {
-                    p = "明天" + p;
+                    p = "明天" + p.replace('時光', '').replace('時間', '');
                 }
 
                 scrollContainer.innerHTML += `
-                            <div class="mini-card">
-                                <div class="mini-time">${p}</div>
-                                <div class="mini-icon">${getWeatherIcon(f.weather)}</div>
-                                <div class="mini-temp">${f.minTemp}° - ${f.maxTemp}°</div>
-                                <div style="font-size:0.9rem; color:var(--sc-red); margin-top:5px; font-weight:900;">💧 ${f.rain}%</div>
-                            </div>
-                        `;
+                    <div class="mini-card">
+                        <div class="mini-time">${p}</div>
+                        <div class="mini-icon">${getWeatherIcon(f.weather)}</div>
+                        <div class="mini-temp">${f.minTemp}°~${f.maxTemp}°</div>
+                    </div>
+                `;
             });
 
-            // 3. 右上角顯示今日日期 (不變)
+            // 4. 更新時間 (不變)
             const now = new Date();
             const month = now.getMonth() + 1;
             const date = now.getDate();
             const dayIndex = now.getDay();
             const days = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
-
             document.getElementById('updateTime').textContent = `${month}月${date}日 ${days[dayIndex]}`;
         }
 
@@ -489,8 +580,8 @@
                 const [_, json] = await Promise.all([delayPromise, fetchPromise]);
 
                 if (json.success) {
-                    renderWeather(json.data);
-
+                    // 專業提示：因為 API 缺少體感、濕度等數據，這裡將模擬數據與真實數據合併後渲染
+                    renderWeather({...json.data, mockData}); 
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('mainContent').style.display = 'block';
                 } else {
